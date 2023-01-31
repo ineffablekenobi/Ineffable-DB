@@ -23,6 +23,10 @@ CREATE OR REPLACE PACKAGE BODY pc AS
 
         printLocal();
 
+        FOR rec IN (SELECT * FROM PRICING@site_link) LOOP
+        dbms_output.put_line(rec.PID || ' ' || rec.Discount || ' ' || rec.Price || ' ' || rec.Region || ' ' || rec.Ratings || ' ' || rec.App_id);
+        END LOOP;
+
     END printGlobal;
     
     PROCEDURE printLocal IS
@@ -47,7 +51,7 @@ CREATE OR REPLACE PROCEDURE RouteRequest AS
         IF query = 1 THEN
             pc.printGlobal();
         ELSIF query = 2 THEN
-            pc.printGlobal();
+            pc.printLocal();
         
         END IF;
         

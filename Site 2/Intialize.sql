@@ -17,7 +17,9 @@ CREATE TABLE GAME(App_ID NUMBER PRIMARY KEY,
  App_id NUMBER);
 
 INSERT INTO GAME VALUES(1, 'ASSASSINS CREED UNITY','ACTION','UBISOFT MONTREAL','UBISOFT','WINDOWS,MAC','01-Feb-23');
-INSERT INTO PRICING VALUES(1, 10, 49, 'bd', 5, 1);
+INSERT INTO PRICING VALUES(2, 10, 49, 'bd', 5, 1);
+
+commit;
 
 CREATE OR REPLACE PROCEDURE PrintPricing AS
 
@@ -25,6 +27,11 @@ BEGIN
     FOR rec IN (SELECT * FROM PRICING) LOOP
         dbms_output.put_line(rec.PID || ' ' || rec.Discount || ' ' || rec.Price || ' ' || rec.Region || ' ' || rec.Ratings || ' ' || rec.App_id);
         END LOOP;
+
+        FOR rec IN (SELECT * FROM PRICING@site_link) LOOP
+        dbms_output.put_line(rec.PID || ' ' || rec.Discount || ' ' || rec.Price || ' ' || rec.Region || ' ' || rec.Ratings || ' ' || rec.App_id);
+        END LOOP;
+
 
 END;
 /
@@ -38,4 +45,6 @@ BEGIN
     PrintPricing();
 END;
 /
+
+
 
